@@ -1,29 +1,38 @@
-import fs from 'node:fs'
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import electron from 'vite-plugin-electron/simple'
-import pkg from './package.json'
+import fs from 'node:fs';
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import electron from 'vite-plugin-electron/simple';
+import pkg from './package.json';
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
-  fs.rmSync('dist-electron', { recursive: true, force: true })
+  fs.rmSync('dist-electron', { recursive: true, force: true });
 
-  const isServe = command === 'serve'
-  const isBuild = command === 'build'
-  const sourcemap = isServe || !!process.env.VSCODE_DEBUG
+  const isServe = command === 'serve';
+  const isBuild = command === 'build';
+  const sourcemap = isServe || !!process.env.VSCODE_DEBUG;
 
   return {
     plugins: [
       vue(),
+      AutoImport({
+        resolvers: [NaiveUiResolver()]
+      }),
+      Components({
+        resolvers: [NaiveUiResolver()]
+      }),
       electron({
         main: {
           // Shortcut of `build.lib.entry`
           entry: 'electron/main/index.ts',
           onstart({ startup }) {
             if (process.env.VSCODE_DEBUG) {
-              console.log(/* For `.vscode/.debug.script.mjs` */'[startup] Electron App')
+              console.log(/* For `.vscode/.debug.script.mjs` */'[startup] Electron App');
             } else {
-              startup()
+              startup();
             }
           },
           vite: {
@@ -63,12 +72,12 @@ export default defineConfig(({ command }) => {
       }),
     ],
     server: process.env.VSCODE_DEBUG && (() => {
-      const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
+      const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL);
       return {
         host: url.hostname,
         port: +url.port,
-      }
+      };
     })(),
     clearScreen: false,
-  }
-})
+  };
+});
