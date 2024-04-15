@@ -5,8 +5,21 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      name: "root",
+      redirect: "/home"
+    },
+    {
+      path: "/home",
       name: "home",
-      component: () => import("../views/HomeView.vue")
+      redirect: "/home/list",
+      component: () => import("../views/HomeView.vue"),
+      children: [
+        {
+          path: "list",
+          name: "home-list",
+          component: () => import("../views/home/VocabularyListView.vue")
+        }
+      ]
     },
     {
       path: "/setting",
