@@ -1,18 +1,25 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { DataObjectFilled as DataIcon, HomeRound as HomeIcon } from "@vicons/material";
+import { useHeaderStore, useTestVocabularyStore } from "../stores/counter";
 
-const route = useRoute();
 const router = useRouter();
+const headerStore = useHeaderStore();
+const testVocabularyStore = useTestVocabularyStore();
 
-const isHome = computed(() => route.name === "home");
+const isHome = computed(() => headerStore.routeName === "home");
 
 function switchView() {
-  if (isHome.value) {
-    handleRouterJump("setting");
-  } else {
-    handleRouterJump("home");
+  switch (headerStore.routeName) {
+    case "home":
+      handleRouterJump("setting");
+      break;
+    case "setting":
+      handleRouterJump("home");
+      break;
+    default:
+      handleRouterJump("home");
   }
 }
 
@@ -24,8 +31,12 @@ function handleRouterJump(targetName: string) {
 <template>
   <div class="h-10 relative flex justify-center content-center items-center border-b-2 border-gray">
     <div class="flex text-lg">
-      <div v-if="isHome">[-/-]</div>
-      <div v-else>Data Manage</div>
+      <div v-if="headerStore.routeName === 'home'">Home</div>
+      <div v-else-if="headerStore.routeName === 'setting'">Data Management</div>
+      <div v-else-if="headerStore.routeName === 'test-choose'">[-/-]</div>
+      <div v-else-if="headerStore.routeName === 'test'">
+        [{{ testVocabularyStore.testedNum }}/{{ testVocabularyStore.totalNum }}]
+      </div>
     </div>
     <div class="absolute right-0">
       <n-button circle @click="switchView">
