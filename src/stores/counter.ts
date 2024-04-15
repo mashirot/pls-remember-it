@@ -19,6 +19,8 @@ export const useVocabularyStore = defineStore("vocabularyCounter", () => {
     }
   })();
 
+  
+
   function getVocabulary(name: string): Vocabulary | undefined {
     return map.get(name);
   }
