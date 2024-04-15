@@ -11,7 +11,22 @@ const router = createRouter({
     {
       path: "/setting",
       name: "setting",
-      component: () => import("../views/SettingView.vue")
+      redirect: "/setting/list",
+      component: () => import("../views/SettingView.vue"),
+      children: [
+        {
+          path: "list",
+          alias: "list",
+          name: "setting-list",
+          component: () => import("../views/setting/VocabularyListView.vue")
+        },
+        {
+          path: "edit/:name",
+          name: "setting-edit",
+          component: () => import("../views/setting/VocabularyEditView.vue")
+        }
+      ]
+    },
     }
   ]
 });
