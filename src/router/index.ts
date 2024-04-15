@@ -40,6 +40,15 @@ const router = createRouter({
         }
       ]
     },
+    {
+      path: "/test",
+      name: "test",
+      component: () => import("../views/test/TestView.vue")
+    },
+    {
+      path: "/test/:name",
+      name: "test-choose",
+      component: () => import("../views/test/TestContentChooseView.vue")
     }
   ]
 });
