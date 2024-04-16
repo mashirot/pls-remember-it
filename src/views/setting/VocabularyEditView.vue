@@ -47,6 +47,12 @@ function handleSave() {
       return;
     }
     vocabularyStore.addVocabulary(vocabulary.value);
+    notification.success({
+      title: "保存成功",
+      content: `成功新增词库 ${vocabularyName}`,
+      duration: 2500
+    });
+    clearForm();
   } else {
     vocabularyStore.addVocabulary(vocabulary.value);
     notification.success({
@@ -54,6 +60,7 @@ function handleSave() {
       content: `成功修改词库 ${vocabularyName}`,
       duration: 2500
     });
+    clearForm();
   }
 }
 
