@@ -10,7 +10,7 @@ export class Vocabulary {
   }
 }
 
-class Node {
+export class Node {
   constructor(key: string, value: string) {
     this.key = key;
     this.value = value;
