@@ -9,7 +9,7 @@ const headerCounter = useHeaderStore();
 headerCounter.routeName = "home";
 </script>
 <template>
-  <div class="h-full w-full border border-black">
+  <div class="h-full w-full rounded-lg border">
     <div class="p-5 flex gap-5 flex-wrap justify-center items-center">
       <div v-if="vocabularyStore.vocabularys.length === 0">No Data</div>
       <div

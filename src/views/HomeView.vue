@@ -5,7 +5,7 @@ const headerCounter = useHeaderStore();
 headerCounter.routeName = "home";
 </script>
 <template>
-  <div class="h-full w-full">
+  <div class="w-full flex flex-auto m-2">
     <router-view />
   </div>
 </template>

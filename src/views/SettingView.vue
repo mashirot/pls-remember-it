@@ -8,7 +8,7 @@ const headerCounter = useHeaderStore();
 headerCounter.routeName = "setting";
 </script>
 <template>
-  <div class="flex flex-nowrap">
+  <div class="w-full flex flex-nowrap">
     <div class="w-28 border-r-2 text-center shrink-0">
       <ul>
         <li
