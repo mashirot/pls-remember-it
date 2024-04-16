@@ -1,12 +1,11 @@
-import { computed, reactive, ref } from "vue";
+import { Ref, computed, reactive, ref } from "vue";
 import { defineStore } from "pinia";
-import { Vocabulary } from "../types/Vocabulary";
+import { Node, Vocabulary } from "../types/Vocabulary";
 import { outputVocabularyData, activeSave } from "../demos/ipc";
 
 export const useHeaderStore = defineStore("headerCounter", () => {
   const routeName = ref("");
-  const content = ref("");
-  return { routeName, content };
+  return { routeName };
 });
 
 export const useVocabularyStore = defineStore("vocabularyCounter", () => {

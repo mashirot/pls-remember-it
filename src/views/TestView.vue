@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useHeaderStore } from '../stores/counter';
+import { useHeaderStore } from "../stores/counter";
 
 const headerStore = useHeaderStore();
 

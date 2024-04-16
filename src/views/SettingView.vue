@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { onBeforeRouteUpdate, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { useHeaderStore } from "../stores/counter";
 
 const router = useRouter();
 
 const headerCounter = useHeaderStore();
 headerCounter.routeName = "setting";
-headerCounter.content = "Data Management";
 </script>
 <template>
   <div class="flex flex-nowrap">
