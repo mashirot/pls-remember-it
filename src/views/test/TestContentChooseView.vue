@@ -47,7 +47,7 @@ function handleStartTest() {
   }
   prepare4Test();
   router.push({
-    name: "test"
+    name: "test-testing"
   });
 }
 

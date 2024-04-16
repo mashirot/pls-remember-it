@@ -43,12 +43,24 @@ const router = createRouter({
     {
       path: "/test",
       name: "test",
-      component: () => import("../views/test/TestView.vue")
-    },
-    {
-      path: "/test/:name",
-      name: "test-choose",
-      component: () => import("../views/test/TestContentChooseView.vue")
+      component: () => import("../views/TestView.vue"),
+      children: [
+        {
+          path: ":name",
+          name: "test-choose",
+          component: () => import("../views/test/TestContentChooseView.vue")
+        },
+        {
+          path: "testing",
+          name: "test-testing",
+          component: () => import("../views/test/TestingView.vue")
+        },
+        {
+          path: "result",
+          name: "test-result",
+          component: () => import("../views/test/TestResultView.vue")
+        }
+      ]
     }
   ]
 });
