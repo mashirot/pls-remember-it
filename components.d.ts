@@ -8,11 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     CommonHeader: typeof import('./src/components/CommonHeader.vue')['default']
-    CreateVocabulary: typeof import('./src/components/CreateVocabulary.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NCard: typeof import('naive-ui')['NCard']
-    NDialog: typeof import('naive-ui')['NDialog']
-    NDialogProvider: typeof import('naive-ui')['NDialogProvider']
+    NDataTable: typeof import('naive-ui')['NDataTable']
     NDynamicInput: typeof import('naive-ui')['NDynamicInput']
     NForm: typeof import('naive-ui')['NForm']
     NFormItem: typeof import('naive-ui')['NFormItem']
@@ -23,10 +21,7 @@ declare module 'vue' {
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
     NPopconfirm: typeof import('naive-ui')['NPopconfirm']
     NRadio: typeof import('naive-ui')['NRadio']
-    NRadioGroup: typeof import('naive-ui')['NRadioGroup']
-    NSpace: typeof import('naive-ui')['NSpace']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    VocabularyEditForm: typeof import('./src/components/setting/VocabularyEditForm.vue')['default']
   }
 }

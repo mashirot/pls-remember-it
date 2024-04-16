@@ -40,16 +40,59 @@ export const useTestVocabularyStore = defineStore("testVocabularyCounter", () =>
   const totalNum = ref(0);
   const testedNum = computed(() => totalNum.value - testVocabularys.value.length);
 
-  const testVocabularys = ref([]);
+  const correctNum = ref(0);
+  const wrongNum = ref(0);
+
+  const currQuestionIdx = ref(0);
+  const testVocabularys: Ref<Array<Node>> = ref([]);
+  const testAnswers: Ref<Array<string>> = ref([]);
 
   function initTest(testNum: number, vocabulary: Vocabulary) {
     totalNum.value = testNum;
+    correctNum.value = 0;
+    wrongNum.value = 0;
+    currQuestionIdx.value = 0;
+    testAnswers.value = [];
+
     const vocabularyData = Object.assign([], vocabulary.data);
-    if (testNum == vocabularyData.length) {
-      testVocabularys.value = vocabularyData;
-      return;
+    if (testNum >= vocabularyData.length) {
+      totalNum.value = vocabularyData.length;
     }
+
+    const tempVocabularys: Array<Node> = [];
+    for (let idx = 0; idx < testNum; idx++) {
+      const randIdx = getRandIdx(vocabularyData.length);
+      tempVocabularys.push(vocabularyData[randIdx]);
+      vocabularyData.splice(randIdx, 1);
+    }
+    testVocabularys.value = tempVocabularys;
   }
 
-  return { totalNum, testedNum, testVocabularys, initTest };
+  function getRandIdx(length: number) {
+    return Math.floor(Math.random() * length);
+  }
+
+  function incIdx(): number {
+    if (currQuestionIdx.value >= testVocabularys.value.length - 1 || currQuestionIdx.value < 0) {
+      currQuestionIdx.value = -1;
+      return -1;
+    }
+    return currQuestionIdx.value++;
+  }
+
+  function getIdx() {
+    return currQuestionIdx.value;
+  }
+
+  return {
+    totalNum,
+    testedNum,
+    correctNum,
+    wrongNum,
+    testVocabularys,
+    testAnswers,
+    initTest,
+    incIdx,
+    getIdx
+  };
 });

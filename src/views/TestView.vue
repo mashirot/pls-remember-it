@@ -6,5 +6,7 @@ const headerStore = useHeaderStore();
 headerStore.routeName = "test";
 </script>
 <template>
-  <router-view />
+  <div class="w-full flex justify-center items-center self-center content-center overflow-auto">
+    <router-view />
+  </div>
 </template>
