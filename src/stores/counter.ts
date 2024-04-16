@@ -1,7 +1,7 @@
 import { computed, reactive, ref } from "vue";
 import { defineStore } from "pinia";
 import { Vocabulary } from "../types/Vocabulary";
-
+import { outputVocabularyData, activeSave } from "../demos/ipc";
 
 export const useHeaderStore = defineStore("headerCounter", () => {
   const routeName = ref("");
@@ -12,14 +12,12 @@ export const useHeaderStore = defineStore("headerCounter", () => {
 export const useVocabularyStore = defineStore("vocabularyCounter", () => {
   const map = reactive(new Map<string, Vocabulary>());
 
-  (() => {
-    for (let index = 0; index < 10; index++) {
-      const vocabulary = new Vocabulary(`vocabulary-${index}`, `Description of vocabulary-${index}`);
+  function initVocabularys() {
+    outputVocabularyData.forEach((vocabulary) => {
       map.set(vocabulary.name, vocabulary);
-    }
-  })();
-
-  
+    });
+  }
+  initVocabularys();
 
   function getVocabulary(name: string): Vocabulary | undefined {
     return map.get(name);
@@ -27,6 +25,7 @@ export const useVocabularyStore = defineStore("vocabularyCounter", () => {
 
   function addVocabulary(vocabulary: Vocabulary) {
     map.set(vocabulary.name, vocabulary);
+    activeSave(vocabularys.value);
   }
 
   function deleteVocabulary(name: string) {
@@ -35,9 +34,8 @@ export const useVocabularyStore = defineStore("vocabularyCounter", () => {
 
   const vocabularys = computed(() => Array.from(map.values()));
 
-  return { map, getVocabulary, addVocabulary, deleteVocabulary, vocabularys };
+  return { map, initVocabularys, getVocabulary, addVocabulary, deleteVocabulary, vocabularys };
 });
-
 
 export const useTestVocabularyStore = defineStore("testVocabularyCounter", () => {
   const totalNum = ref(0);
@@ -52,8 +50,7 @@ export const useTestVocabularyStore = defineStore("testVocabularyCounter", () =>
       testVocabularys.value = vocabularyData;
       return;
     }
-
   }
 
-  return { totalNum, testedNum, testVocabularys, initTest};
+  return { totalNum, testedNum, testVocabularys, initTest };
 });

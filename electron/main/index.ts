@@ -1,7 +1,8 @@
 import { app, BrowserWindow, shell, ipcMain } from "electron";
 import { release } from "node:os";
-import { join, dirname } from "node:path";
+import path, { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { load, save } from "../utils/VocabularyFileUtils";
 
 globalThis.__filename = fileURLToPath(import.meta.url);
 globalThis.__dirname = dirname(__filename);
@@ -49,9 +50,9 @@ async function createWindow() {
     title: "Main window",
     icon: join(process.env.VITE_PUBLIC, "favicon.ico"),
     webPreferences: {
-      preload
+      preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
-      // nodeIntegration: true,
+      nodeIntegration: true,
 
       // Consider using contextBridge.exposeInMainWorld
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
@@ -67,6 +68,21 @@ async function createWindow() {
   } else {
     win.loadFile(indexHtml);
   }
+
+  win.once("ready-to-show", () => {
+    const filePath = path.dirname(app.getPath("exe"));
+    const vocabularys = load(filePath);
+    win?.webContents.send("program-ready", vocabularys);
+  });
+
+  app.once("before-quit", () => {
+    win?.webContents.send("program-close");
+  });
+
+  ipcMain.on("save-vocabulary", (_event, data) => {
+    const filePath = path.dirname(app.getPath("exe"));
+    save(filePath, data);
+  });
 
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
@@ -106,18 +122,18 @@ app.on("activate", () => {
 });
 
 // New window example arg: new windows url
-ipcMain.handle("open-win", (_, arg) => {
-  const childWindow = new BrowserWindow({
-    webPreferences: {
-      preload,
-      nodeIntegration: true,
-      contextIsolation: false
-    }
-  });
+// ipcMain.handle("open-win", (_, arg) => {
+//   const childWindow = new BrowserWindow({
+//     webPreferences: {
+//       preload,
+//       nodeIntegration: true,
+//       contextIsolation: false
+//     }
+//   });
 
-  if (process.env.VITE_DEV_SERVER_URL) {
-    childWindow.loadURL(`${url}#${arg}`);
-  } else {
-    childWindow.loadFile(indexHtml, { hash: arg });
-  }
-});
+//   if (process.env.VITE_DEV_SERVER_URL) {
+//     childWindow.loadURL(`${url}#${arg}`);
+//   } else {
+//     childWindow.loadFile(indexHtml, { hash: arg });
+//   }
+// });
