@@ -18,7 +18,6 @@
       "dmg"
     ],
     "artifactName": "${productName}-Mac-${version}-Installer.${ext}",
-    "icon": "public/favicon.ico"
   },
   "win": {
     "target": [
@@ -43,6 +42,5 @@
       "AppImage"
     ],
     "artifactName": "${productName}-Linux-${version}.${ext}",
-    "icon": "public/favicon.ico"
   }
 }
