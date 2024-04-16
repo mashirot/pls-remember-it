@@ -28,7 +28,7 @@ function handleRouterJump(targetName: string) {
 </script>
 
 <template>
-  <div class="h-10 relative flex justify-center content-center items-center border-b-2 border-gray">
+  <div class="h-10 relative flex justify-center content-center items-center border-t-2 border-b-2 border-gray">
     <div class="flex text-lg">
       <div v-if="headerStore.routeName === 'home'">Home</div>
       <div v-else-if="headerStore.routeName === 'setting'">Data Management</div>
