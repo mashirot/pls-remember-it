@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { DataObjectFilled as DataIcon, HomeRound as HomeIcon } from "@vicons/material";
 import { useHeaderStore, useTestVocabularyStore } from "../stores/counter";
@@ -8,14 +7,14 @@ const router = useRouter();
 const headerStore = useHeaderStore();
 const testVocabularyStore = useTestVocabularyStore();
 
-const isHome = computed(() => headerStore.routeName === "home");
-
 function switchView() {
   switch (headerStore.routeName) {
     case "home":
       handleRouterJump("setting");
       break;
     case "setting":
+    case "test-choose":
+    case "test":
       handleRouterJump("home");
       break;
     default:
@@ -41,8 +40,15 @@ function handleRouterJump(targetName: string) {
     <div class="absolute right-0">
       <n-button circle @click="switchView">
         <template #icon>
-          <n-icon v-if="isHome"><data-icon /></n-icon>
-          <n-icon v-else><home-icon /></n-icon>
+          <n-icon v-if="headerStore.routeName === 'home'"><data-icon /></n-icon>
+          <n-icon
+            v-else-if="
+              headerStore.routeName === 'test-choose' ||
+              headerStore.routeName === 'test' ||
+              headerStore.routeName === 'setting'
+            "
+            ><home-icon
+          /></n-icon>
         </template>
       </n-button>
     </div>
