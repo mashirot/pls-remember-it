@@ -38,7 +38,7 @@ export const useVocabularyStore = defineStore("vocabularyCounter", () => {
 
 export const useTestVocabularyStore = defineStore("testVocabularyCounter", () => {
   const totalNum = ref(0);
-  const testedNum = computed(() => totalNum.value - testVocabularys.value.length);
+  const testedNum = computed(() => correctNum.value + wrongNum.value);
 
   const correctNum = ref(0);
   const wrongNum = ref(0);
