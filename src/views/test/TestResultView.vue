@@ -60,7 +60,7 @@ function handleRowClass(rowData: Result): string {
       %
     </div>
     <div class="max-h-96 overflow-auto rounded border">
-      <n-data-table :columns :data="result" :row-class-name="handleRowClass" :bordered="true" />
+      <n-data-table :columns="columns" :data="result" :row-class-name="handleRowClass" :bordered="true" />
     </div>
     <div class="flex gap-3">
       <n-button @click="router.go(-2)" tertiary>返回测试</n-button>

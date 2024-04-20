@@ -18,10 +18,12 @@ const notification = useNotification();
 const vocabularyName = route.params.name as string;
 const vocabulary = vocabularyStore.getVocabulary(vocabularyName);
 
-const checkedValueRef = ref<string | null>("15");
+const checkedValueRef = ref<string>(
+  vocabulary ? (vocabulary.data.length < 15 ? vocabulary.data.length + "" : "15") : "15"
+);
 
 const isCustom = ref(false);
-const testNum = ref(15);
+const testNum = ref(vocabulary ? (vocabulary.data.length < 15 ? vocabulary.data.length : 15) : 15);
 
 function handleSelChange(e: Event) {
   isCustom.value = false;
