@@ -33,7 +33,7 @@ const rules = reactive({
 });
 
 function handleSave() {
-  if (!handleValidateClick || vocabulary.value === undefined) {
+  if (!handleValidateClick || !vocabulary.value || vocabulary.value.name.trim() === "") {
     return;
   }
   const vocabularyName = vocabulary.value.name;
