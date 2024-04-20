@@ -16,7 +16,7 @@ export const useVocabularyStore = defineStore("vocabularyCounter", () => {
       map.set(vocabulary.name, vocabulary);
     });
   }
-  initVocabularys();
+  setTimeout(() => initVocabularys(), 500);
 
   function getVocabulary(name: string): Vocabulary | undefined {
     return map.get(name);
