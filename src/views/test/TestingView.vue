@@ -11,9 +11,9 @@ headerStore.routeName = "test";
 const router = useRouter();
 
 const normalQuestionBoxClass =
-  "relative w-28 h-28 text-2xl flex flex-col justify-center items-center rounded-md border";
+  "relative min-w-28 min-h-28 p-4 text-2xl flex flex-col self-center justify-center items-center rounded-md border";
 const wrongQuestionBoxClass =
-  "relative w-28 h-28 text-2xl flex flex-col text-red-500 justify-center items-center rounded-md border";
+  "relative min-w-28 min-h-28 p-4 text-2xl flex flex-col self-center text-red-500 justify-center items-center rounded-md border";
 const normalQuestionClass = "text-center font-semibold";
 const wrongQuestionClass = "text-center font-semibold animate-bounce";
 const questionBoxClassRef = ref(normalQuestionBoxClass);
@@ -96,7 +96,7 @@ function afterSubmit() {
       <div :class="questionClassRef">
         {{ currQuestion }}
       </div>
-      <div v-if="isShowCorrectAnswer" class="absolute text-base bottom-0">
+      <div v-if="isShowCorrectAnswer" class="self-end text-base text-center">
         正确答案：{{ currAnswer }}
       </div>
     </div>
