@@ -96,7 +96,7 @@ function afterSubmit() {
       <div :class="questionClassRef">
         {{ currQuestion }}
       </div>
-      <div v-if="isShowCorrectAnswer" class="self-end text-base text-center">
+      <div v-if="isShowCorrectAnswer" class="self-center justify-items-end text-base text-center">
         正确答案：{{ currAnswer }}
       </div>
     </div>
