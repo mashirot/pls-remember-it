@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell, ipcMain } from "electron";
+import { app, BrowserWindow, Menu, shell, ipcMain } from "electron";
 import { release } from "node:os";
 import path, { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -44,6 +44,8 @@ let win: BrowserWindow | null = null;
 const preload = join(__dirname, "../preload/index.mjs");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
+
+Menu.setApplicationMenu(null);
 
 async function createWindow() {
   win = new BrowserWindow({
