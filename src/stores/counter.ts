@@ -31,9 +31,21 @@ export const useVocabularyStore = defineStore("vocabularyCounter", () => {
     map.delete(name);
   }
 
+  function manualSave() {
+    activeSave(vocabularys.value);
+  }
+
   const vocabularys = computed(() => Array.from(map.values()));
 
-  return { map, initVocabularys, getVocabulary, addVocabulary, deleteVocabulary, vocabularys };
+  return {
+    map,
+    initVocabularys,
+    getVocabulary,
+    addVocabulary,
+    deleteVocabulary,
+    vocabularys,
+    manualSave
+  };
 });
 
 export const useTestVocabularyStore = defineStore("testVocabularyCounter", () => {

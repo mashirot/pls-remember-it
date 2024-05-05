@@ -12,11 +12,12 @@ const notification = useNotification();
 
 headerCounter.routeName = "setting";
 
-const isCreate = route.params.name === "-1" || route.params.name === undefined;
+const paramName = route.params.name;
+const isCreate = paramName === "-1" || paramName === undefined;
 
 const vocabulary = isCreate
   ? ref(new Vocabulary("", ""))
-  : ref(vocabularyStore.getVocabulary(route.params.name as string));
+  : ref(vocabularyStore.getVocabulary(paramName as string));
 
 const formRef = ref<FormInst | null>(null);
 const rules = reactive({
@@ -54,6 +55,7 @@ function handleSave() {
     });
     clearForm();
   } else {
+    vocabularyStore.deleteVocabulary(paramName as string);
     vocabularyStore.addVocabulary(vocabulary.value);
     notification.success({
       title: "保存成功",
